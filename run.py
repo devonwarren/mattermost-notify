@@ -1,9 +1,16 @@
-import json, os, fnmatch
+import json, os, fnmatch, requests, argparse
 from jinja2 import Environment, FileSystemLoader
 
 json_data = {}
 load_dir = "/json-input"
 template_dir = "/templates"
+
+# parse cli args
+parser = argparse.ArgumentParser()
+parser.add_argument('--webhook', nargs=1, help="URL to post data to")
+parser.add_argument('--message', nargs=1, help="URL to post data to")
+args = parser.parse_args()
+print(args)
 
 # get list of files in json dir (first level only for now)
 file_list = os.listdir(load_dir)
@@ -21,6 +28,7 @@ print(json_data)
 tpl_loader = FileSystemLoader(template_dir)
 env = Environment(loader=tpl_loader)
 
-template = env.get_template('test.jinja')
-output = template.render(json=json_data)
+template = env.get_template('default.jinja')
+output = template.render(data=json_data)
 print(output)
+
