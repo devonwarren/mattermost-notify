@@ -34,7 +34,7 @@ print(output)
 
 
 # push request into mattermost
-r = requests.post(sys.argv[1], data = {'text':output}, verify=False)
+r = requests.post(sys.argv[1], json={'text':output}, verify=False)
 print(r.text)
 
 r.raise_for_status()
