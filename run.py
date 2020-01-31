@@ -1,4 +1,4 @@
-import json, os, fnmatch, requests, argparse
+import json, os, fnmatch, requests, sys
 from jinja2 import Environment, FileSystemLoader
 
 json_data = {}
@@ -6,11 +6,11 @@ load_dir = "/json-input"
 template_dir = "/templates"
 
 # parse cli args
-parser = argparse.ArgumentParser()
-parser.add_argument('--webhook', nargs=1, help="URL to post data to")
-parser.add_argument('--message', nargs=1, help="URL to post data to")
-args = parser.parse_args()
-print(args)
+#parser = argparse.ArgumentParser()
+#parser.add_argument('--webhook', nargs=1, help="URL to post data to")
+#parser.add_argument('--message', nargs=1, help="URL to post data to")
+#args = parser.parse_args()
+print(sys.argv)
 
 # get list of files in json dir (first level only for now)
 file_list = os.listdir(load_dir)
@@ -32,3 +32,9 @@ template = env.get_template('default.jinja')
 output = template.render(data=json_data)
 print(output)
 
+
+# push request into mattermost
+r = requests.post(sys.argv[1], data = {'text':output})
+print(r.text)
+
+r.raise_for_status()
