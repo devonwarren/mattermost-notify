@@ -6,6 +6,7 @@ ENV MESSAGE_TEXT "Test Mattermost Notification"
 ENV MATTERMOST_HOOK_URL "http://google.com"
 ENV DEBUG "false"
 ENV TEMPLATE_FILE "default.jinja"
+ENV CHANNEL ""
 
 # volume for importing json files
 RUN mkdir /json-input
@@ -21,5 +22,5 @@ RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
 COPY ./run.py .
 COPY ./run.sh .
 
-# use 
+# use bash startup script
 ENTRYPOINT [ "bash", "run.sh" ]

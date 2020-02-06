@@ -37,6 +37,8 @@ logging.debug('Template Output: ' + output)
 
 # setup web request payload
 payload = {}
+if os.environ['CHANNEL']:
+   payload['channel'] = os.environ['CHANNEL']
 payload['text'] = output
 
 # push request into mattermost
