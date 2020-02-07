@@ -29,7 +29,7 @@ These variables can be set when running the docker image to customize the functi
 Files put in the /json-input will be available as `data` under the filename (minus extension) on render so a file of `/json-input/example-file.json` with the contents `{'test':'sample_text'}` will be available as `{{ data['example-file']['test] }}`
 
 ### Environment Vars
-You can pass in simple data using environment variables to the docker image. This will be available when rendering under the `env` jinja variable. So something like `Commit: {{ env['CI_COMMIT_SHORT_SHA'] }}` will render something like `Commit: a82b1ac7` (in this case using the (built-in Gitlab CI variable)[https://docs.gitlab.com/ee/ci/variables/#syntax-of-environment-variables-in-job-scripts]))
+You can pass in simple data using environment variables to the docker image. This will be available when rendering under the `env` jinja variable. So something like `Commit: {{ env['CI_COMMIT_SHORT_SHA'] }}` will render something like `Commit: a82b1ac7` (in this case using the [built-in Gitlab CI variable](https://docs.gitlab.com/ee/ci/variables/#syntax-of-environment-variables-in-job-scripts]))
 
 ### Jinja Templates
 If you just want a single line displayed you can use the `MESSAGE_TEXT` variable and it will render whatever jinja in that. Else you 
