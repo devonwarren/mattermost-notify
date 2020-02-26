@@ -37,8 +37,13 @@ logging.debug('Template Output: ' + output)
 
 # setup web request payload
 payload = {}
-if os.environ['CHANNEL']:
-   payload['channel'] = os.environ['CHANNEL']
+extraOptions = [ 'CHANNEL', 'USERNAME', 'ICON_URL', 'ICON_EMOJI' ]
+
+# iterate over additional options
+for opt in extraOptions:
+    if os.environ[opt]:
+        payload[opt.lower()] = os.environ[opt]
+
 payload['text'] = output
 
 # push request into mattermost

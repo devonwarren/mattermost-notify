@@ -7,6 +7,9 @@ ENV MATTERMOST_HOOK_URL "http://google.com"
 ENV DEBUG "false"
 ENV TEMPLATE_FILE "default.jinja"
 ENV CHANNEL ""
+ENV USERNAME ""
+ENV ICON_URL ""
+ENV ICON_EMOJI ""
 
 # volume for importing json files
 RUN mkdir /json-input
