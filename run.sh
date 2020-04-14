@@ -11,6 +11,7 @@ fi
 
 # run preprocessor script
 if [ "${PREPROCESS_PYTHON,,}" != "" ]; then
+    echo "Running Preprocess script... "
     python3 ${PREPROCESS_PYTHON}
 fi
 
