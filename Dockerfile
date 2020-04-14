@@ -10,6 +10,7 @@ ENV CHANNEL ""
 ENV USERNAME ""
 ENV ICON_URL ""
 ENV ICON_EMOJI ""
+ENV PREPROCESS_PYTHON ""
 
 # volume for importing json files
 RUN mkdir /json-input
