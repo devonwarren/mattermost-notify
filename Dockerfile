@@ -18,8 +18,8 @@ RUN mkdir /json-input
 
 RUN mkdir /templates
 
-# install curl and python
-RUN apk add curl python3 bash
+# install curl and python and other potential tools
+RUN apk add curl git python3 bash py3-numpy
 RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
 
 # copy run script
