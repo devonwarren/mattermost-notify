@@ -1,5 +1,6 @@
 import json, os, fnmatch, requests, sys, logging
 from jinja2 import Environment, FileSystemLoader
+from pprint import pformat
 
 load_dir = "/json-input"
 template_dir = "/templates"
@@ -21,8 +22,10 @@ for file in file_list:
             # load json data into a variable using the filename as the key (without extension)
             json_data[file[:-5]] = json.load(json_file)
 
-logging.debug('JSON data (template tag- data): ' + str(json_data))
-logging.debug('Environment vars (template tag- env): ' + str(os.environ))
+logging.debug(' JSON DATA (template tag- data): ')
+logging.debug(pformat(json_data, indent=2, width=60) + '\n')
+logging.debug(' ENVIRONMENT VARS (template tag- env): ')
+logging.debug(str(os.environ) + '\n')
 
 # setup jinja
 tpl_loader = FileSystemLoader(template_dir)
