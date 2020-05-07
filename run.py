@@ -37,7 +37,6 @@ logging.debug('Using template file /templates/{0}'.format(os.environ['TEMPLATE_F
 output = template.render(data=json_data, env=os.environ)
 logging.debug('Template Output: ' + output)
 
-
 # setup web request payload
 payload = {}
 extraOptions = [ 'CHANNEL', 'USERNAME', 'ICON_URL', 'ICON_EMOJI' ]
@@ -49,6 +48,13 @@ for opt in extraOptions:
 
 payload['text'] = output
 
+# render card info if specified
+if os.environ['CARD_TEMPLATE_FILE']:
+    template = env.get_template(os.environ['CARD_TEMPLATE_FILE'])
+    logging.debug('Using card template file /templates/{0}'.format(os.environ['CARD_TEMPLATE_FILE']))
+    payload['props'] = {'card': template.render(data=json_data, env=os.environ)}
+    logging.debug('Card Template Output: ' + payload['props']['card'])
+    
 # push request into mattermost
 r = requests.post(sys.argv[1], data=json.dumps(payload), verify=False, headers={'Content-Type': 'application/json'})
 logging.debug('Request Body: ' + str(r.request.body))
