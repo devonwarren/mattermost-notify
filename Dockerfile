@@ -1,5 +1,5 @@
 
-FROM alpine:latest
+FROM alpine:3.12
 
 # input env variables
 ENV MESSAGE_TEXT "Test Mattermost Notification"
@@ -13,14 +13,14 @@ ENV ICON_URL ""
 ENV ICON_EMOJI ""
 ENV PREPROCESS_PYTHON ""
 
-# volume for importing json files
+# directory for importing json files
 RUN mkdir /json-input
-#VOLUME /json-input
 
+# directory for storing templates
 RUN mkdir /templates
 
 # install curl and python and other potential tools
-RUN apk add curl git python3 bash py3-numpy
+RUN apk add curl git python3 bash py3-numpy py3-pip
 RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
 
 # copy run script
