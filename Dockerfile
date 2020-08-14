@@ -28,4 +28,4 @@ COPY ./run.py .
 COPY ./run.sh .
 
 # use bash startup script
-ENTRYPOINT [ "bash", "run.sh" ]
+ENTRYPOINT [ "sh", "run.sh" ]
