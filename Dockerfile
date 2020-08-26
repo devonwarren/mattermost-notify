@@ -20,12 +20,12 @@ RUN adduser -D notifyuser
 RUN mkdir /app
 RUN chown -R notifyuser /app && chmod 775 /app
 
+# upgrade libgcc for CVE-2019-15847
+RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main libgcc
+
 # install curl and python and other potential tools
 RUN apk add curl git python3 bash py3-numpy py3-pip
 RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
-
-# remove libgcc for CVE-2019-15847
-RUN rm /usr/lib/libgcc_s.so.1
 
 # copy run script
 COPY --chown=notifyuser ./run.py /app
