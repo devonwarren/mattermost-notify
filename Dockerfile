@@ -24,6 +24,9 @@ RUN chown -R notifyuser /app && chmod 775 /app
 RUN apk add curl git python3 bash py3-numpy py3-pip
 RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
 
+# remove libgcc for CVE-2019-15847
+RUN rm /usr/lib/libgcc_s.so.1
+
 # copy run script
 COPY --chown=notifyuser ./run.py /app
 COPY --chown=notifyuser ./run.sh /app
