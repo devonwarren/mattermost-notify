@@ -13,19 +13,23 @@ ENV ICON_URL ""
 ENV ICON_EMOJI ""
 ENV PREPROCESS_PYTHON ""
 
-# directory for importing json files
-RUN mkdir /json-input
+# create user so not running as root
+RUN adduser -D notifyuser
 
-# directory for storing templates
-RUN mkdir /templates
+# directory for importing json files and templates
+RUN mkdir /json-input && mkdir /templates
+RUN chown notifyuser /json-input && chown notifyuser /templates
 
 # install curl and python and other potential tools
 RUN apk add curl git python3 bash py3-numpy py3-pip
 RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
 
 # copy run script
-COPY ./run.py .
-COPY ./run.sh .
+COPY --chown=notifyuser ./run.py .
+COPY --chown=notifyuser ./run.sh .
+
+# start running as non-root
+USER notifyuser
 
 # use bash startup script
 ENTRYPOINT [ "sh", "run.sh" ]
