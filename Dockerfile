@@ -17,15 +17,14 @@ ENV PREPROCESS_PYTHON ""
 RUN adduser -D notifyuser
 
 # directory for importing json files and templates
-RUN mkdir /app
-RUN chown -R notifyuser /app && chmod 775 /app
+RUN mkdir /app && chown -R notifyuser /app && chmod 775 /app
 
 # upgrade libgcc for CVE-2019-15847
-RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main libgcc
-
-# install curl and python and other potential tools
-RUN apk add curl git python3 bash py3-numpy py3-pip
-RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
+RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main libgcc && \
+    # install curl and python and other potential tools
+    apk add curl git python3 bash py3-numpy py3-pip && \
+    # install python libraries needed
+    pip3 install --upgrade pip && pip3 install Jinja2 requests
 
 # copy run script
 COPY --chown=notifyuser ./run.py /app
