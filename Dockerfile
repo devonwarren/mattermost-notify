@@ -17,19 +17,22 @@ ENV PREPROCESS_PYTHON ""
 RUN adduser -D notifyuser
 
 # directory for importing json files and templates
-RUN mkdir /json-input && mkdir /templates
-RUN chown notifyuser /json-input && chown notifyuser /templates
+RUN mkdir /app
+RUN chown -R notifyuser /app && chmod 775 /app
 
 # install curl and python and other potential tools
 RUN apk add curl git python3 bash py3-numpy py3-pip
 RUN pip3 install --upgrade pip && pip3 install Jinja2 requests
 
 # copy run script
-COPY --chown=notifyuser ./run.py .
-COPY --chown=notifyuser ./run.sh .
+COPY --chown=notifyuser ./run.py /app
+COPY --chown=notifyuser ./run.sh /app
 
 # start running as non-root
 USER notifyuser
 
+# create directories for importing json files and templates
+RUN mkdir /app/json-input && mkdir /app/templates
+
 # use bash startup script
-ENTRYPOINT [ "sh", "run.sh" ]
+ENTRYPOINT [ "sh", "/app/run.sh" ]
