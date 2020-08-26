@@ -2,8 +2,8 @@ import json, os, fnmatch, requests, sys, logging
 from jinja2 import Environment, FileSystemLoader
 from pprint import pformat
 
-load_dir = "/json-input"
-template_dir = "/templates"
+load_dir = "/app/json-input"
+template_dir = "/app/templates"
 
 # allow debugging if enabled
 if os.environ['DEBUG'].lower() == 'true':
@@ -33,7 +33,7 @@ env = Environment(loader=tpl_loader)
 
 # render template
 template = env.get_template(os.environ['TEMPLATE_FILE'])
-logging.debug('Using template file /templates/{0}'.format(os.environ['TEMPLATE_FILE']))
+logging.debug('Using template file /app/templates/{0}'.format(os.environ['TEMPLATE_FILE']))
 output = template.render(data=json_data, env=os.environ)
 logging.debug('Template Output: ' + output)
 
@@ -51,7 +51,7 @@ payload['text'] = output
 # render card info if specified
 if os.environ['CARD_TEMPLATE_FILE']:
     template = env.get_template(os.environ['CARD_TEMPLATE_FILE'])
-    logging.debug('Using card template file /templates/{0}'.format(os.environ['CARD_TEMPLATE_FILE']))
+    logging.debug('Using card template file /app/templates/{0}'.format(os.environ['CARD_TEMPLATE_FILE']))
     payload['props'] = {'card': template.render(data=json_data, env=os.environ)}
     logging.debug('Card Template Output: ' + payload['props']['card'])
     

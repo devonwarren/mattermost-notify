@@ -1,11 +1,11 @@
 
 # export message to jinja
-echo ${MESSAGE_TEXT} > /templates/default.jinja;
+echo ${MESSAGE_TEXT} > /app/templates/default.jinja;
 
 # show json files for debugging
 if [ $(echo $DEBUG | tr '[A-Z]' '[a-z]') == "true" ]; then
     echo "=== JSON FILES ===";
-    ls /json-input;
+    ls /app/json-input;
     echo "=== END OF JSON LIST ==="
 fi
 
@@ -16,4 +16,4 @@ if [ "${PREPROCESS_PYTHON}" != "" ]; then
 fi
 
 # run that magic python script
-python3 /run.py ${MATTERMOST_HOOK_URL}
+python3 /app/run.py ${MATTERMOST_HOOK_URL}
