@@ -22,7 +22,7 @@ RUN mkdir /app && chown -R notifyuser /app && chmod 775 /app
 # upgrade libgcc for CVE-2019-15847
 RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main libgcc libgfortran libquadmath && \
     # install curl and python and other potential tools
-    apk add curl git python3 bash py3-numpy py3-pip && \
+    apk add curl git python3 bash py3-numpy py3-pip ca-certificates && \
     # install python libraries needed
     pip3 install --upgrade pip && pip3 install Jinja2 requests
 

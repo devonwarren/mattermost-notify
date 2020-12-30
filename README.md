@@ -37,4 +37,4 @@ You can pass in simple data using environment variables to the docker image. Thi
 If you just want a single line displayed you can use the `MESSAGE_TEXT` variable and it will render whatever jinja in that, else you will likely want copy/mount the files in `/app/templates` to be run against with the filename being specified using `TEMPLATE_FILE` (or `CARD_TEMPLATE_FILE` for card info)
 
 ### Advanced Functionality
-You can introduce a preprocess python script if you need to do more advanced functionality. This will run standalone before the regular script is called so you can process or import whatever json objects you need
+You can introduce a preprocess python script if you need to do more advanced functionality. This will run standalone before the regular script is called so you can process or import whatever json objects you need. You need to pass in the full path to a python3 compatible script.
